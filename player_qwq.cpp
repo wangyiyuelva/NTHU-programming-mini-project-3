@@ -41,29 +41,29 @@ int score (std::array<std::array<int, SIZE>, SIZE> brd, int validSpots, int plye
     int val = validSpots * 1;
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            if ((i == 0 || i == SIZE - 1) && (j == 0 || j == SIZE - 1)) {
+            /*if ((i == 0 || i == SIZE - 1) && (j == 0 || j == SIZE - 1)) {
                 if (brd[i][j] == plyer) val += 50;
                 else if (brd[i][j] == 3 - plyer) val -= 40;
-            } else if ((i + j == 1) || (i + j == 13) || abs(i - j) == 6 || ((i == 1 || i == 6) && (j == 1 || j == 6))) {
+            } else*/ if ((i + j == 1) || (i + j == 13) || abs(i - j) == 6 || ((i == 1 || i == 6) && (j == 1 || j == 6))) {
                 if (brd[i][j] == plyer) val -= 40;
                 else if (brd[i][j] == 3 - plyer) val += 30;
             } else if (((i == 0 || i == 1 || i == 2 || i == 5 || i == 6 || i == 7) && (j == 2 || j == 5)) ||
                        ((i == 2 || i == 5) && (j == 0 || j == 1 || j == 2 || j == 5 || j == 6 || j == 7))) {
-                if (brd[i][j] == plyer) val = val + 20 + abs(i - j) * 2;
+                if (brd[i][j] == plyer) val = val + 20 + abs(i - j) * 5;
             } else if (i == 0 || i == SIZE - 1 || j == 0 || j == SIZE - 1) {
-                if (brd[i][j] == plyer) val += 20;
+                if (brd[i][j] == plyer) val += 30;
                 else if (brd[i][j] == 3 - plyer) val -= 10;
             }
 
-            if (brd[i][j] == plyer) val += 1;
-            else if (brd[i][j] == 3 - plyer) val -= 1;
+            if (brd[i][j] == plyer) val += 2;
+            else if (brd[i][j] == 3 - plyer) val -= 2;
         }
     }
     if ((brd[0][0] == plyer && (brd[0][2] == plyer || brd[1][1] == plyer || brd[2][0] == plyer)) || 
         (brd[0][7] == plyer && (brd[0][6] == plyer || brd[1][6] == plyer || brd[1][7] == plyer)) ||
         (brd[7][0] == plyer && (brd[6][0] == plyer || brd[6][1] == plyer || brd[7][1] == plyer)) ||
         (brd[7][7] == plyer && (brd[6][7] == plyer || brd[6][6] == plyer || brd[7][6] == plyer)))
-        val += 50;
+        val += 40;
 
     return val;
 }
