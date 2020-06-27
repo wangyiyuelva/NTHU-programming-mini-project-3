@@ -49,7 +49,7 @@ int score (std::array<std::array<int, SIZE>, SIZE> brd, int validSpots, int plye
                 else if (brd[i][j] == 3 - plyer) val += 30;
             } else if (((i == 0 || i == 1 || i == 2 || i == 5 || i == 6 || i == 7) && (j == 2 || j == 5)) ||
                        ((i == 2 || i == 5) && (j == 0 || j == 1 || j == 2 || j == 5 || j == 6 || j == 7))) {
-                if (brd[i][j] == plyer) val = val + 30 + abs(i - j) * 2;
+                if (brd[i][j] == plyer) val = val + 20 + abs(i - j) * 2;
             } else if (i == 0 || i == SIZE - 1 || j == 0 || j == SIZE - 1) {
                 if (brd[i][j] == plyer) val += 20;
                 else if (brd[i][j] == 3 - plyer) val -= 10;
@@ -59,6 +59,11 @@ int score (std::array<std::array<int, SIZE>, SIZE> brd, int validSpots, int plye
             else if (brd[i][j] == 3 - plyer) val -= 1;
         }
     }
+    if ((brd[0][0] == plyer && (brd[0][2] == plyer || brd[1][1] == plyer || brd[2][0] == plyer)) || 
+        (brd[0][7] == plyer && (brd[0][6] == plyer || brd[1][6] == plyer || brd[1][7] == plyer)) ||
+        (brd[7][0] == plyer && (brd[6][0] == plyer || brd[6][1] == plyer || brd[7][1] == plyer)) ||
+        (brd[7][7] == plyer && (brd[6][7] == plyer || brd[6][6] == plyer || brd[7][6] == plyer)))
+        val += 50;
 
     return val;
 }
@@ -184,7 +189,7 @@ void write_valid_spot(std::ofstream& fout) {
         if ((cur.x == 0 || cur.x == SIZE - 1) && (cur.y == SIZE - 1 || cur.y == 0)) {
             bestID = i;
             break;
-        }        
+        }
         int val = minimax(newBoard(board, cur, player), get_valid_spots(3 - player), 3, 3 - player, MIN, MAX);
         bestID = val > maxVal ? i : bestID;
         maxVal = std::max(maxVal, val);
